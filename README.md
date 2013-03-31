@@ -45,12 +45,12 @@ as well.
 
 Choose "yes" for Require.js.
 
-For the question "Which files do you want to include with &lt;script&gt;
-tag?", write `test/test-main.js`. This is the file which will include
+For the question *"Which files do you want to include with &lt;script&gt;
+tag?"*, write `test/test-main.js`. This is the file which will include
 all your other code. It has the same role for your tests as `main.js`
 has for your app when using Require.js.
 
-For the qustion "Which files do you want to test?", write:
+For the qustion *"Which files do you want to test?"*, write:
 
 * `lib/**/*.js` &emph; all external libraries
 * `src/**/*.js` &emph; our source code
