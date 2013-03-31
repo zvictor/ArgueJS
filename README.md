@@ -196,7 +196,8 @@ $ karma run
 
 ---
 
-Improved from Jake Trent's [post].
+Based on Jake Trent's [post], with some improvements on `shims` and so
+on.
 
 [Require.js]: http://requirejs.org/
 [post]: http://jaketrent.com/post/test-requirejs-testacular/
