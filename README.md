@@ -46,21 +46,22 @@ as well.
 Choose "yes" for Require.js.
 
 For the question *"Which files do you want to include with &lt;script&gt;
-tag?"*, write `test/test-main.js`. This is the file which will include
-all your other code. It has the same role for your tests as `main.js`
-has for your app when using Require.js.
+tag?"*, we need to choose all files which are *not* loaded by Require.js.
+Usually you'll only need to include your `test-main.js` file, which has
+the same role for your tests as `main.js` has for your app when using
+Require.js.
 
-For the qustion *"Which files do you want to test?"*, write:
+For the qustion *"Which files do you want to test?"*, we choose all the
+files we want to load with Require.js. For this example we'll need:
 
-* `lib/**/*.js` &emph; all external libraries
-* `src/**/*.js` &emph; our source code
-* `test/**/*Spec.js` &emph; all the tests
+* `lib/**/*.js` &mdash; all external libraries
+* `src/**/*.js` &mdash; our source code
+* `test/**/*Spec.js` &mdash; all the tests
 
-And then, for excludes, type `src/main.js`, as we do this as we don't
-want to actually start the application in our tests.
+And then, for excludes, type `src/main.js`, as we don't want to actually
+start the application in our tests.
 
-Now you should have a `karma.conf.js` which contains this plus a little
-more:
+Now your `karma.conf.js` should include:
 
 ```javascript
 // list of files / patterns to load in the browser
@@ -76,7 +77,6 @@ files = [
 
   'test/test-main.js'
 ];
-
 
 // list of files to exclude
 exclude = [
@@ -99,19 +99,18 @@ The Require.js config for `baseUrl` gives a starting context for modules
 that load with relative paths. When setting this value for the Karma
 server it will need to start with `/base`. We want the `baseUrl` for our
 tests to be the same folder as the base url we have in `src/main.js`, so
-relative requires in the source won’t need to change. So, as we want our
-base url to be at `src/`, we need to write `/base/src`.
+that relative requires in the source won’t need to change. So, as we
+want our base url to be at `src/`, we need to write `/base/src`.
 
 ### Require Each Test File
 
-With Karma we don't need to list all test files as we can easily find
-them from the files specified in `test-main.js`: Karma includes all the
-files in `window.__karma__.files`, so by filtering this array we find
-all our test files.
+With Karma we don't need to list all test files ourselves as we can
+easily find them from the files specified in `test-main.js`: Karma
+includes all the files in `window.__karma__.files`, so by filtering this
+array we find all our test files.
 
 Now we can tell Require.js to load our tests, which must be done
-asynchronously so dependencies must be fetched before the tests are run.
-
+asynchronously as dependencies must be fetched before the tests are run.
 The `test/main-test.js` file ends up looking like this:
 
 ```javascript
