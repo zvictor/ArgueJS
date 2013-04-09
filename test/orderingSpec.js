@@ -3,29 +3,23 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
   
   describe('argue', function() {
     describe('empty signature', function() {
+      function upper() {
+        return __();
+      }
 
       it('should return no arguments', function() {
-        function upper() {
-          return __();
-        }
-
+        
         upper();
         //TODO:must be equal to object just with .doc()
+        
       });
 
-    });
-    describe('excess of arguments', function() {
+      it('should throw an Error when arguments exceed', function() {
 
-      it('should throw an Error', function() {
-        function upper() {
-          return __();
-        }
-
-        try {
+        (function(){
           upper("value");
-          //TODO:must fail!
-        } catch(e) {
-        }
+        }).should.throw('Too many arguments');
+        
       });
 
     });
@@ -38,18 +32,21 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           param : [String]
         });
       }
-      
+
       //right:
       upper();
       upper("value");
-      
+
       //wrong:
-      try{
-      upper(7); //TODO! better catch fails
-      upper("value", 7);
-      }catch(e){};
+        (function(){
+          upper(7);
+        }).should.throw('Incompatible type signature');
+        
+        (function(){
+          upper("value", 7);
+        }).should.throw('Too many arguments');
     });
-    
+
     it('should not worry about not set optional arguments', function() {
       function upper() {
         return __({
@@ -61,17 +58,16 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           sixth : [String]
         });
       }
-      
+
       //right:
       upper(7);
       upper(7, "value");
       upper(7, "value", "value", "value", "value", "value");
-      
+
       //wrong:
-      try{
-      upper(7); //TODO! better catch fails
-      upper("value", 7);
-      }catch(e){};
+      (function(){
+        upper("value", 7);
+      }).should.throw("parameter 'first' waiting for a Number argument but received a string");
     });
 
   });
