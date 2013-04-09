@@ -9,6 +9,7 @@ requirejs.config({
     paths: {
         'jquery': '../lib/jquery',
         'underscore': '../lib/underscore',
+        'chai': '../lib/chai',
     },
 
     shim: {

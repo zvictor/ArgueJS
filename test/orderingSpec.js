@@ -1,5 +1,6 @@
-define(['argue', 'underscore'], function(__, _) {
-
+define(['argue', 'underscore', 'chai'], function(__, _, chai) {
+  chai.should();
+  
   describe('argue', function() {
     describe('empty signature', function() {
 
