@@ -65,7 +65,7 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           third : [String],
           fourth : [String],
           fifth : [String],
-          sixth : [String]
+          sixth : [Number]
         });
       }
 
@@ -84,18 +84,48 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
       should.not.exist(numberAlone.fifth);
       should.not.exist(numberAlone.sixth);
       
-      var numberStrings = upper(7, "value", "value", "value", "value", "value");
+      var numberStrings = upper(7, "value", "value", "value", "value", 7);
       numberStrings.first.should.be.equal(7);
       numberStrings.second.should.be.equal("value");
       numberStrings.third.should.be.equal("value");
       numberStrings.fourth.should.be.equal("value");
       numberStrings.fifth.should.be.equal("value");
-      numberStrings.sixth.should.be.equal("value");
+      numberStrings.sixth.should.be.equal(7);
       
       //wrong:
       (function(){
         upper("value", 7);
       }).should.throw("parameter 'first' waiting for a Number argument but received a String");
+      
+      (function(){
+        upper(7, true);
+      }).should.throw('Incompatible type signature');
+      
+      
+      (function(){
+        upper(7, 7, 7);
+      }).should.throw('Incompatible type signature');
+    });
+
+  });
+  describe('default values', function() {
+
+    it('should accept both defined and not defined arguments', function() {
+      function upper() {
+        return __({
+          param : [Number, 3]
+        });
+      }
+
+      //right:
+      should.equal(upper().param, 3);
+      
+      should.equal(upper(7).param, 7);
+
+      //wrong:
+      (function(){
+        upper('unknown');
+      }).should.throw("Incompatible type signature");
     });
 
   });

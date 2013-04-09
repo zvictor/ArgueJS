@@ -5,6 +5,7 @@ define(function() {
   
   var toType = function(obj) {
       if (obj === global)
+        // http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
         return "global";
         
       return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1];
@@ -42,14 +43,15 @@ define(function() {
 
       if (belongs(value, definition))
         argCount++;
-      else if (!optional)
-        throw Error("parameter '" + name + "' waiting for a " + definition.name + " argument but received a " + toType(value));
+      else
+        if (optional)
+          value = signature[name][1];
+        else
+          throw Error("parameter '" + name + "' waiting for a " + definition.name + " argument but received a " + toType(value));
       
       paramCount++;
       result[name] = value;
     }
-
-    console.log(result);
 
     if (argCount < arguments.length)
       if(arguments.length > paramCount)
