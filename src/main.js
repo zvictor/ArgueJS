@@ -11,7 +11,7 @@ requirejs.config({
     }
 });
 
-define(['app', 'jquery'], function (App, $) {
-    var app = new App($('body'));
-    app.render();
+define(['argue', 'jquery'], function (__, $) {
+    var app = new __($('body'));
+    app.doc();
 });

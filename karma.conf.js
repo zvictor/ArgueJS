@@ -8,8 +8,8 @@ basePath = '';
 
 // list of files / patterns to load in the browser
 files = [
-  JASMINE,
-  JASMINE_ADAPTER,
+  MOCHA,
+  MOCHA_ADAPTER,
   REQUIRE,
   REQUIRE_ADAPTER,
 
@@ -61,7 +61,7 @@ autoWatch = true;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome'];
+browsers = ['Chrome', 'Firefox', 'PhantomJS'];
 
 
 // If browser does not capture in given timeout [ms], kill it
