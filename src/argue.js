@@ -3,6 +3,13 @@ define(function() {
     return toString.call(obj) == '[object Array]';
   }
   
+  var toType = function(obj) {
+      if (obj === global)
+        return "global";
+        
+      return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1];
+    }
+  
   function belongs(value, type) {
     var result = false;
 
@@ -11,11 +18,11 @@ define(function() {
     else if (type == Function && typeof (/./) !== 'function') // Optimize `isFunction` if appropriate.
       result = typeof value === 'function';
     else if (type == Boolean)
-      result = value === true || value === false || toString.call(value) == '[object Boolean]';
+      result = value === true || value === false || toType(value) == 'Boolean';
     else if (type == Array)
       result = isArray(value);
     else if (['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp',   'Object'].indexOf( type.name ) != -1)
-      result = toString.call(value) == '[object ' + type.name + ']';
+      result = toType(value) == type.name;
 
     return result;
   }
@@ -36,7 +43,7 @@ define(function() {
       if (belongs(value, definition))
         argCount++;
       else if (!optional)
-        throw Error("parameter '" + name + "' waiting for a " + definition.name + " argument but received a " + typeof value);
+        throw Error("parameter '" + name + "' waiting for a " + definition.name + " argument but received a " + toType(value));
       
       paramCount++;
       result[name] = value;

@@ -95,7 +95,7 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
       //wrong:
       (function(){
         upper("value", 7);
-      }).should.throw("parameter 'first' waiting for a Number argument but received a string");
+      }).should.throw("parameter 'first' waiting for a Number argument but received a String");
     });
 
   });
