@@ -27,7 +27,7 @@ define(['argue', 'underscore'], function(__, _) {
         }
         
         //right:
-        upper(9);
+        upper(7);
         
         //wrong:
         try{//TODO:better catch
@@ -127,8 +127,9 @@ define(['argue', 'underscore'], function(__, _) {
         }
         
         //right:
+        upper();
         upper("value");
-        upper(9);
+        upper(7);
         upper(true);
         upper([]);
         upper(function(){});

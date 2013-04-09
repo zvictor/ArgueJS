@@ -1,7 +1,6 @@
 define(function() {
   function belongs(value, type) {
     var result = false;
-      
 
     if(type === undefined)
       result = true;    
@@ -17,33 +16,30 @@ define(function() {
     return result;
   }
 
-  var __ = function(description) {
-    var args = arguments.callee.caller.arguments;
-    console.log("description:");
-    console.log(description);
-    console.log("arguments:");
-    console.log(arguments);
-    console.log("caller.arguments:");
-    console.log(args);
-
+  var __ = function(params) {
+    var arguments = arguments.callee.caller.arguments;
     var result = {};
     var count = 0;
-    for (var prop in description) {
-      var value = arguments.callee.caller.arguments[count];
-      var definition = description[prop];
+    
+    for (var prop in params) {
+      var value = arguments[count];
+      var definition = params[prop];
+      var optional = Array.isArray(definition) || toString.call(definition) == '[object Array]';
+      
+      definition = (optional) ? definition[0] : definition;
 
-      if (!belongs(value, definition)) {
-        //TODO: se for arg opcional, passa, se nao, lanca erro.
+      if (belongs(value, definition))
+        count++;
+      else if (!optional)
         throw Error("parameter '" + prop + "' waiting for a " + definition.name + " argument but received a " + typeof value);
-      }
+        
       result[prop] = value;
-      count++;
     }
 
     console.log("result:");
     console.log(result);
 
-    if (count < args.length)
+    if (count < arguments.length)
       throw new Error("Too many arguments.");
 
     return result;
