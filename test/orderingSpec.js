@@ -1,6 +1,6 @@
 define(['argue', 'underscore', 'chai'], function(__, _, chai) {
-  chai.should();
-  
+  var should = chai.should();
+
   describe('argue', function() {
     describe('empty signature', function() {
       function upper() {
@@ -9,9 +9,15 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
 
       it('should return no arguments', function() {
         
-        upper();
-        //TODO:must be equal to object just with .doc()
+        var instance = upper();
+
+        instance.should.be.an('object');
+        instance.should.have.ownProperty('doc');
+        instance.doc.should.be.a('function');
         
+        delete instance.doc
+        instance.should.be.empty;
+
       });
 
       it('should throw an Error when arguments exceed', function() {
@@ -34,17 +40,21 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
       }
 
       //right:
-      upper();
-      upper("value");
+      var emptyCall = upper(); 
+      emptyCall.should.have.ownProperty('param')
+      should.not.exist(emptyCall.param);
+      
+      var stringCall = upper("value"); 
+      should.equal(stringCall.param, "value");
 
       //wrong:
-        (function(){
-          upper(7);
-        }).should.throw('Incompatible type signature');
-        
-        (function(){
-          upper("value", 7);
-        }).should.throw('Too many arguments');
+      (function(){
+        upper(7);
+      }).should.throw('Incompatible type signature');
+
+      (function(){
+        upper("value", 7);
+      }).should.throw('Too many arguments');
     });
 
     it('should not worry about not set optional arguments', function() {
@@ -60,10 +70,28 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
       }
 
       //right:
-      upper(7);
-      upper(7, "value");
-      upper(7, "value", "value", "value", "value", "value");
-
+      var numberAlone = upper(7);
+      numberAlone.first.should.be.equal(7)
+      numberAlone.should
+        .have.ownProperty('second')
+        .have.ownProperty('third')
+        .have.ownProperty('fourth')
+        .have.ownProperty('fifth')
+        .have.ownProperty('sixth');
+      should.not.exist(numberAlone.second);
+      should.not.exist(numberAlone.third);
+      should.not.exist(numberAlone.fourth);
+      should.not.exist(numberAlone.fifth);
+      should.not.exist(numberAlone.sixth);
+      
+      var numberStrings = upper(7, "value", "value", "value", "value", "value");
+      numberStrings.first.should.be.equal(7);
+      numberStrings.second.should.be.equal("value");
+      numberStrings.third.should.be.equal("value");
+      numberStrings.fourth.should.be.equal("value");
+      numberStrings.fifth.should.be.equal("value");
+      numberStrings.sixth.should.be.equal("value");
+      
       //wrong:
       (function(){
         upper("value", 7);

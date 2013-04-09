@@ -22,7 +22,7 @@ define(function() {
 
   var __ = function(signature) {
     var arguments = arguments.callee.caller.arguments;
-    var result = {};
+    var result = {'doc':doc};
     var argCount = 0;
     var paramCount = 0;
     
@@ -53,7 +53,7 @@ define(function() {
     return result;
   };
 
-  __.prototype.doc = function() {
+  var doc = function() {
     return 123123;
   };
 
