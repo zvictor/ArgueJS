@@ -61,12 +61,30 @@ Type-checking ensures your arguments are what you expected, and throws errors wh
 ```javascript
 function age(){
   arguments = __({born: Date})
-  
   // ...
 ```
 ```javascript
 >>> age('01/10/1988')
  Error: parameter 'born' waiting for a Date argument but received a String
+```
+
+### Avoid type-checking
+
+The [special data type](#special-data-types) `undefined` can be used to allow the parameter to be of any type.
+
+*example:*
+```javascript
+function Book(){
+  arguments = __({title: undefined})
+  // ...
+  return arguments.title;
+}
+```
+```javascript
+>>> book('Animal Farm: a Fairy Story')
+ 'Animal Farm: a Fairy Story'
+>>> book(1984)
+ 1984
 ```
 
 ### Data types
@@ -79,10 +97,8 @@ function age(){
 * Date
 * RegExp
 
-### Special type:
+### Special data types:
 * undefined
-
-The special type `undefined` can be used to allow the parameter to be of any type.
 
 ## Optional parameters
 
@@ -99,8 +115,8 @@ function unique(){
   
   // ...
 ```
-The default value for an optional parameter is `undefined`.
-To set a default value for your parameter take a look at [default values](#default-values).
+If no value is passed to an optional parameter, then its value will be `undefined`.
+To set a default value for your parameter, take a look at [default values](#default-values).
 
 ### Default values
 
