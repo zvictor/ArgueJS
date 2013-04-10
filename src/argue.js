@@ -29,70 +29,61 @@ define(function() {
   }
 
   var __ = function(signature) {
-    var inputs = [Array.prototype.slice.call( arguments.callee.caller.arguments )];
-    var result, paramCount;
-    var error;
+    var input = Array.prototype.slice.call( arguments.callee.caller.arguments );
     
     var paramSum = 0;
     for (var name in signature)
       paramSum++;
+    
+    if(input.length > paramSum)
+      throw new Error("Too many arguments");
+      
+    var expansion = [input];
       
     var pivotIndex = -1;
     for (var name in signature) {
       pivotIndex++;
-      
       var optional = isArray(signature[name]);
-      if(!optional)
-        continue;
+      var type = (optional) ? signature[name][0] : signature[name];
         
-      var reversed = inputs.slice(0).reverse();
-      for(var i=0; i<reversed.length; i++){
-        var args = reversed[i].slice(0);
+      var copy = expansion.slice(0);
+      for(var i=0; i<copy.length; i++){
+        var args = copy[i].slice(0);
+        var value = args[pivotIndex];
+        
+        if (!belongs(value, type)){
+          expansion.splice(i, 1); 
+          if(!optional && !expansion.length)
+            throw new Error("parameter '" + name + "' waiting for a " + type.name + " argument but received a " + toType(value));
+        }
+        
         args.splice(pivotIndex, 0, undefined);
-        inputs.unshift(args);
+        if(optional && args.length <= paramSum)
+          expansion.push(args);
       }
     }
     
-    var tooMany = true;
-    inputs = inputs.filter(function(element, index, array) {
-      tooMany = tooMany && (element.length > paramSum); //If we have some valid number of arguments, we are not with too many arguments anymore.
-      return (element.length == paramSum);
-    });
-    
-    search:
-      for(var i=0; i<inputs.length; i++){
-        result = {'doc':doc};
-        paramCount = 0;
-        var args = inputs[i];
-        
-        for (var name in signature) {
-          var value = args[paramCount];
-          var definition = signature[name];
-          var optional = isArray(definition);
-          
-          var type = (optional) ? definition[0] : definition;
-      
-          if (!belongs(value, type))
-            if (optional && value == void 0)
-              value = definition[1];
-            else{
-              error = "parameter '" + name + "' waiting for a " + type.name + " argument but received a " + toType(value);
-              continue search;
-            }
-            
-          paramCount++;
-          result[name] = value;
-          
-          if(paramCount == paramSum)
-            break search;
-        }
-      }
-      
-    if(tooMany)
-      throw new Error("Too many arguments");
-    if (paramCount != paramSum)
+    if(!expansion.length)
       throw new Error("Incompatible type signature");
-
+      
+    input = expansion[expansion.length-1];
+    
+    var result = {'doc':doc};
+    var paramIndex = 0;
+    for (var name in signature) {
+      var value = input[paramIndex];
+      var definition = signature[name];
+      var optional = isArray(definition);
+      
+      var type = (optional) ? definition[0] : definition;
+  
+      if (optional && !belongs(value, type))
+        value = definition[1];
+        
+      paramIndex++;
+      result[name] = value;
+    }
+      
     return result;
   };
 
