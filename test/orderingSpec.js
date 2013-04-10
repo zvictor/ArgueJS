@@ -30,6 +30,7 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
 
     });
   });
+  
   describe('optional arguments', function() {
 
     it('should accept both defined and not defined arguments', function() {
@@ -54,6 +55,37 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
 
       (function(){
         upper("value", 7);
+      }).should.throw('Too many arguments');
+    });
+
+    it('should hit the target among similars', function() {
+      function range() {
+        return __({
+          start : [Number, 1],
+          stop : Number,
+          step : [Number, 1]
+        });
+      }
+
+      //right:
+      var oneArg = range(7);
+      should.equal(oneArg.start, 1); 
+      should.equal(oneArg.stop, 7);
+      should.equal(oneArg.step, 1);
+      
+      var twoArg = range(3, 7);
+      should.equal(twoArg.start, 3); 
+      should.equal(twoArg.stop, 7);
+      should.equal(twoArg.step, 1);
+      
+      var threeArg = range(3, 7, 2);
+      should.equal(threeArg.start, 3); 
+      should.equal(threeArg.stop, 7);
+      should.equal(threeArg.step, 2);
+
+      //wrong:
+      (function(){
+        range(3, 7, 1, 0);
       }).should.throw('Too many arguments');
     });
 
@@ -108,6 +140,7 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
     });
 
   });
+  
   describe('default values', function() {
 
     it('should accept both defined and not defined arguments', function() {
