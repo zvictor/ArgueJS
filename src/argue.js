@@ -4,7 +4,7 @@ define(function() {
   }
   
   var toType = function(obj) {
-      if (obj === global)
+      if (obj === window)
         // http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
         return "global";
         
