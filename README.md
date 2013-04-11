@@ -70,7 +70,7 @@ function age(){
 
 ### Avoid type-checking
 
-The [special data type](#special-data-types) `undefined` can be used to allow the parameter to be of any type.
+The [special data type](#special-data-types) `undefined` can be used to allow the parameter to be of *any* type.
 
 *example:*
 ```javascript
@@ -115,7 +115,7 @@ function unique(){
   
   // ...
 ```
-If no value is passed to an optional parameter, then its value will be `undefined`.
+If no value is passed to an optional parameter, then its argument value will be `undefined`.
 To set a default value for your parameter, take a look at [default values](#default-values).
 
 ### Default values

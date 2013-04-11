@@ -4,12 +4,12 @@ var tests = Object.keys(window.__karma__.files).filter(function (file) {
 
 requirejs.config({
     // Karma serves files from '/base'
-    baseUrl: '/base/src',
+    baseUrl: '/base',
 
     paths: {
-        'jquery': '../lib/jquery',
-        'underscore': '../lib/underscore',
-        'chai': '../lib/chai',
+        'jquery': 'lib/jquery',
+        'underscore': 'lib/underscore',
+        'chai': 'lib/chai',
     },
 
     shim: {
