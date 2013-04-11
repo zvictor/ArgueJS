@@ -1,4 +1,15 @@
-define(function() {
+!function (name, context, definition) {
+  if (typeof require === 'function' && typeof exports === 'object' && typeof module === 'object') {
+    module.exports = definition();
+  } else if (typeof define === 'function' && typeof define.amd  === 'object') {
+    define(function () {
+      return definition();
+    });
+  } else {
+    context[name] = definition();
+  }
+}('__', this, function () {
+  
   var isArray = Array.isArray || function(obj){
     return toString.call(obj) == '[object Array]';
   }
@@ -88,7 +99,7 @@ define(function() {
   };
 
   var doc = function() {
-    return 123123;
+    throw Error('Not implemented yet');
   };
 
   return __;

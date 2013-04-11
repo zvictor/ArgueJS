@@ -1,0 +1,25 @@
+{
+  "name": "arguejs",
+  "version": "0.0.1",
+  "description": "ArgueJS is a library that allows you to delightfully extend your methods's signatures with optional parameters, default values and type-checking.",
+  "main": "argue.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zvictor/ArgueJS.git"
+  },
+  "keywords": [
+    "arguejs",
+    "argue",
+    "arguments",
+    "parameters"
+  ],
+  "author": "zvictor",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+}
