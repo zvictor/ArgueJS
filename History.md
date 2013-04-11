@@ -1,5 +1,5 @@
 
-## v0.0.2
+## v0.1.0
 
 * Fixed bug on node that do not allow to recognize global objects
 * Installation notes added
