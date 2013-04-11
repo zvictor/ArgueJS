@@ -29,6 +29,30 @@ function range(){
  4
 ```
 
+## Installation
+ArgueJS is available for both node.js and the browser.
+
+###Node.js
+
+Package is available through npm:
+
+```bash
+$ npm install arguejs
+```
+
+### Browser
+
+Include the ArgueJS browser build in your pages.
+
+```html
+<script src="argue.js" type="text/javascript"></script>
+```
+
+This will provide `__` as a global object, or `define` it if you are using AMD.
+
+The latest version will be available for hot-linking at http://raw.github.com/zvictor/ArgueJS/master/argue.js.
+If you prefer to host yourself, use the `argue.js` file from the root of the github project.
+
 ## Getting started
 When writing your JavaScript methods with ArgueJS,
 have in mind that you will not use conventional parameters definition as you used before.
@@ -122,7 +146,7 @@ To set a default value for your parameter, take a look at [default values](#defa
 
 When writing methods, sometimes you want to override the value of an undefined argument by a default value.
 The sintax to do this is similiar to [optional parameters](#optional-parameters).
-That is because a **parameter with default value is an optional parameter** by itself.
+That is because a *parameter with default value is an optional parameter* by itself.
 
 To set a default value for a parameter **declare its type and its default value inside of an Array**,
 like this: `{name: [String, 'unknown']}`
