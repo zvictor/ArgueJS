@@ -1,7 +1,7 @@
 define(['argue', 'underscore', 'chai'], function(__, _, chai) {
   var should = chai.should();
   
-  describe('argue', function() {
+  describe('data types', function() {
     
     describe('typage restriction', function() {
       
@@ -17,6 +17,18 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         (function(){
           upper();
         }).should.throw(/^parameter 'param' waiting for a String argument but received a (Undefined|DOMWindow)/);
+                
+        (function(){
+          upper(undefined);
+        }).should.throw(/^parameter 'param' waiting for a String argument but received a (Undefined|DOMWindow)/);
+        
+        (function(){
+          upper(null);
+        }).should.throw(/^parameter 'param' waiting for a String argument but received a (Null|DOMWindow)/);
+                
+        (function(){
+          upper(window);
+        }).should.throw("parameter 'param' waiting for a String argument but received a global");
         
         (function(){
           upper(7);
@@ -45,15 +57,7 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         (function(){
           upper(new RegExp());
         }).should.throw("parameter 'param' waiting for a String argument but received a ");
-        
-        (function(){
-          upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for a String argument but received a (Undefined|DOMWindow)/);
-        
-        (function(){
-          upper(null);
-        }).should.throw(/^parameter 'param' waiting for a String argument but received a (Null|DOMWindow)/);
-        
+
       });
 
       it('should enforce Number typed signature', function() {
@@ -68,6 +72,18 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         (function(){
           upper();
         }).should.throw(/^parameter 'param' waiting for a Number argument but received a (Undefined|DOMWindow)/);
+                
+        (function(){
+          upper(undefined);
+        }).should.throw(/^parameter 'param' waiting for a Number argument but received a (Undefined|DOMWindow)/);
+        
+        (function(){
+          upper(null);
+        }).should.throw(/^parameter 'param' waiting for a Number argument but received a (Null|DOMWindow)/);
+                
+        (function(){
+          upper(window);
+        }).should.throw("parameter 'param' waiting for a Number argument but received a global");
           
         (function(){
           upper("value");
@@ -97,14 +113,6 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           upper(new RegExp());
         }).should.throw("parameter 'param' waiting for a Number argument but received a ");
         
-        (function(){
-          upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for a Number argument but received a (Undefined|DOMWindow)/);
-        
-        (function(){
-          upper(null);
-        }).should.throw(/^parameter 'param' waiting for a Number argument but received a (Null|DOMWindow)/);
-        
       });
 
       it('should enforce Boolean typed signature', function() {
@@ -119,6 +127,18 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         (function(){
           upper();
         }).should.throw(/^parameter 'param' waiting for a Boolean argument but received a (Undefined|DOMWindow)/);
+                
+        (function(){
+          upper(undefined);
+        }).should.throw(/^parameter 'param' waiting for a Boolean argument but received a (Undefined|DOMWindow)/);
+        
+        (function(){
+          upper(null);
+        }).should.throw(/^parameter 'param' waiting for a Boolean argument but received a (Null|DOMWindow)/);
+                
+        (function(){
+          upper(window);
+        }).should.throw("parameter 'param' waiting for a Boolean argument but received a global");
           
         (function(){
           upper("value");
@@ -148,14 +168,6 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           upper(new RegExp());
         }).should.throw("parameter 'param' waiting for a Boolean argument but received a ");
         
-        (function(){
-          upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for a Boolean argument but received a (Undefined|DOMWindow)/);
-        
-        (function(){
-          upper(null);
-        }).should.throw(/^parameter 'param' waiting for a Boolean argument but received a (Null|DOMWindow)/);
-        
       });
 
       it('should enforce Array typed signature', function() {
@@ -171,6 +183,18 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         (function(){
           upper();
         }).should.throw(/^parameter 'param' waiting for a Array argument but received a (Undefined|DOMWindow)/);
+                
+        (function(){
+          upper(undefined);
+        }).should.throw(/^parameter 'param' waiting for a Array argument but received a (Undefined|DOMWindow)/);
+        
+        (function(){
+          upper(null);
+        }).should.throw(/^parameter 'param' waiting for a Array argument but received a (Null|DOMWindow)/);
+                
+        (function(){
+          upper(window);
+        }).should.throw("parameter 'param' waiting for a Array argument but received a global");
           
         (function(){
           upper("value");
@@ -200,14 +224,6 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           upper(new RegExp());
         }).should.throw("parameter 'param' waiting for a Array argument but received a ");
         
-        (function(){
-          upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for a Array argument but received a (Undefined|DOMWindow)/);
-        
-        (function(){
-          upper(null);
-        }).should.throw(/^parameter 'param' waiting for a Array argument but received a (Null|DOMWindow)/);
-        
       });
 
       it('should enforce Function typed signature', function() {
@@ -224,6 +240,18 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         (function(){
           upper();
         }).should.throw(/^parameter 'param' waiting for a Function argument but received a (Undefined|DOMWindow)/);
+                
+        (function(){
+          upper(undefined);
+        }).should.throw(/^parameter 'param' waiting for a Function argument but received a (Undefined|DOMWindow)/);
+        
+        (function(){
+          upper(null);
+        }).should.throw(/^parameter 'param' waiting for a Function argument but received a (Null|DOMWindow)/);
+                
+        (function(){
+          upper(window);
+        }).should.throw("parameter 'param' waiting for a Function argument but received a global");
           
         (function(){
           upper("value");
@@ -253,14 +281,6 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           upper(new RegExp());
         }).should.throw("parameter 'param' waiting for a Function argument but received a ");
         
-        (function(){
-          upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for a Function argument but received a (Undefined|DOMWindow)/);
-        
-        (function(){
-          upper(null);
-        }).should.throw(/^parameter 'param' waiting for a Function argument but received a (Null|DOMWindow)/);
-        
       });
 
       it('should enforce Object typed signature', function() {
@@ -275,6 +295,18 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         (function(){
           upper();
         }).should.throw(/^parameter 'param' waiting for a Object argument but received a (Undefined|DOMWindow)/);
+                
+        (function(){
+          upper(undefined);
+        }).should.throw(/^parameter 'param' waiting for a Object argument but received a (Undefined|DOMWindow)/);
+        
+        (function(){
+          upper(null);
+        }).should.throw(/^parameter 'param' waiting for a Object argument but received a (Null|DOMWindow)/);
+                
+        (function(){
+          upper(window);
+        }).should.throw("parameter 'param' waiting for a Object argument but received a global");
           
         (function(){
           upper("value");
@@ -304,14 +336,6 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           upper(new RegExp());
         }).should.throw("parameter 'param' waiting for a Object argument but received a ");
         
-        (function(){
-          upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for a Object argument but received a (Undefined|DOMWindow)/);
-        
-        (function(){
-          upper(null);
-        }).should.throw(/^parameter 'param' waiting for a Object argument but received a (Null|DOMWindow)/);
-        
       });
 
       it('should enforce Date typed signature', function() {
@@ -327,7 +351,19 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         (function(){
           upper();
         }).should.throw(/^parameter 'param' waiting for a Date argument but received a (Undefined|DOMWindow)/);
-          
+                  
+        (function(){
+          upper(undefined);
+        }).should.throw(/^parameter 'param' waiting for a Date argument but received a (Undefined|DOMWindow)/);
+        
+        (function(){
+          upper(null);
+        }).should.throw(/^parameter 'param' waiting for a Date argument but received a (Null|DOMWindow)/);
+                
+        (function(){
+          upper(window);
+        }).should.throw("parameter 'param' waiting for a Date argument but received a global");
+        
         (function(){
           upper("value");
         }).should.throw("parameter 'param' waiting for a Date argument but received a String");
@@ -356,14 +392,6 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           upper(new RegExp());
         }).should.throw("parameter 'param' waiting for a Date argument but received a ");
         
-        (function(){
-          upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for a Date argument but received a (Undefined|DOMWindow)/);
-        
-        (function(){
-          upper(null);
-        }).should.throw(/^parameter 'param' waiting for a Date argument but received a (Null|DOMWindow)/);
-        
       });
 
 
@@ -379,6 +407,18 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         (function(){
           upper();
         }).should.throw(/^parameter 'param' waiting for a RegExp argument but received a (Undefined|DOMWindow)/);
+                
+        (function(){
+          upper(undefined);
+        }).should.throw(/^parameter 'param' waiting for a RegExp argument but received a (Undefined|DOMWindow)/);
+        
+        (function(){
+          upper(null);
+        }).should.throw(/^parameter 'param' waiting for a RegExp argument but received a (Null|DOMWindow)/);
+                
+        (function(){
+          upper(window);
+        }).should.throw("parameter 'param' waiting for a RegExp argument but received a global");
           
         (function(){
           upper("value");
@@ -408,14 +448,6 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
           upper(new Date());
         }).should.throw("parameter 'param' waiting for a RegExp argument but received a Date");
         
-        (function(){
-          upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for a RegExp argument but received a (Undefined|DOMWindow)/);
-        
-        (function(){
-          upper(null);
-        }).should.throw(/^parameter 'param' waiting for a RegExp argument but received a (Null|DOMWindow)/);
-        
       });
 
 
@@ -426,6 +458,10 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         
         //right [accept all!]:
         should.equal(upper().param, undefined);
+        should.equal(upper(undefined).param, undefined);
+        should.equal(upper(null).param, null);
+        should.equal(upper(window).param, window);
+        
         should.equal(upper("value").param, "value");
         should.equal(upper(7).param, 7);
         should.equal(upper(true).param, true);
@@ -439,12 +475,10 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
         should.equal(upper(dt).param, dt);
         upper(new RegExp()).param.should.eql( new RegExp());
         
-        should.equal(upper(undefined).param, undefined);
-        should.equal(upper(null).param, null);
       });
 
 
     });
+    
   });
-
 });

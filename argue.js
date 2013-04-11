@@ -15,12 +15,21 @@
   }
   
   var toType = function(obj) {
-      if (obj === window)
-        // http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
-        return "global";
-        
-      return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1];
-    }
+    // Functions created with the Function constructor don't inherit the strictness of the caller,
+    // they are strict only if they start their body with the 'use strict' directive, otherwise they are non-strict.
+    // See more at http://stackoverflow.com/questions/3277182/599991/how-to-get-the-global-object-in-javascript
+    if (obj === Function('return this')())
+      // Host objects are browser-created objects that are not specified by the ES5 standard.
+      // All DOM elements and global functions are host objects.
+      
+      // ES5 declines to specify a return value for typeof when applied to host objects,
+      // neither does it suggest a value for the [[Class]] property of host objects.
+      // The upshot is that cross-browser type-checking of host objects is generally not reliable.
+      // See more at http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/ 
+      return "global";
+      
+    return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1];
+  }
   
   function belongs(value, type) {
     var result = false;
