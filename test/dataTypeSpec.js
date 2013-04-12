@@ -1,4 +1,4 @@
-define(['argue', 'underscore', 'chai'], function(__, _, chai) {
+define(['argue', 'chai'], function(__, chai) {
   chai.Assertion.includeStack = true;
   var should = chai.should();
   

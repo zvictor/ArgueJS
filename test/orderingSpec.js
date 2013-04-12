@@ -1,4 +1,4 @@
-define(['argue', 'underscore', 'chai'], function(__, _, chai) {
+define(['argue', 'chai'], function(__, chai) {
   var should = chai.should();
 
   describe('argument excess', function() {
