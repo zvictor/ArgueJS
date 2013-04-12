@@ -1,4 +1,5 @@
 define(['argue', 'underscore', 'chai'], function(__, _, chai) {
+  chai.Assertion.includeStack = true;
   var should = chai.should();
   
   describe('data types', function() {

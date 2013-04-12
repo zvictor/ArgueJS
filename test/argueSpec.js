@@ -1,11 +1,40 @@
 define(['argue', 'underscore', 'chai'], function(__, _, chai) {
+  chai.Assertion.includeStack = true;
   var should = chai.should();
 
   describe('argue', function() {
     
-    describe('empty signature', function() {
+    describe('without signature without upperArguments', function() {
       function upper() {
         return __();
+      }
+
+      it('should throw error when called', function() {
+        
+        (function(){
+          upper();
+        }).should.throw(/^parameter 'signature' waiting for a Object argument but received a (Undefined|DOMWindow)/);
+
+      });
+
+    });
+    describe('without signature with upperArguments', function() {
+      function upper() {
+        return __(arguments);
+      }
+
+      it('should throw error when called', function() {
+
+        (function(){
+          upper();
+        }).should.throw("parameter 'signature' waiting for a Object argument but received a Arguments");
+        
+      });
+
+    });
+    describe('with signature without upperArguments', function() {
+      function upper() {
+        return __({});
       }
 
       it('should return no arguments', function() {
@@ -21,15 +50,23 @@ define(['argue', 'underscore', 'chai'], function(__, _, chai) {
 
       });
 
-      it('should throw an Error when arguments exceed', function() {
+    });
+    describe('with signature with upperArguments', function() {
+      function upper() {
+        return __({foo: String}, arguments);
+      }
 
-        (function(){
-          upper("value");
-        }).should.throw('Too many arguments');
+      it('should have the same behavior as without upperArguments', function() {
+        function upper2() {
+          return __({foo: String});
+        }
+        
+        should.equal(upper('bar').foo, upper2('bar').foo);
         
       });
 
-    });
+    });    
+      
     
   });
 });

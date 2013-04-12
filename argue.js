@@ -48,8 +48,19 @@
     return result;
   }
 
-  var __ = function(signature) {
-    var input = Array.prototype.slice.call( arguments.callee.caller.arguments );
+  var __ = function(signature, upperArguments) {
+    var input;
+    
+    if (!belongs(signature, Object))
+      throw new Error("parameter 'signature' waiting for a Object argument but received a " + toType(signature));
+    
+    try{
+      input = upperArguments || arguments.callee.caller.arguments;
+    } catch(e){
+      throw new Error('It is not possible to infer arguments in strict mode. See http://github.com/zvictor/ArgueJs#propagating-arguments for alternatives.');
+    }
+    
+    input = Array.prototype.slice.call(input);
     
     var paramSum = 0;
     for (var name in signature)

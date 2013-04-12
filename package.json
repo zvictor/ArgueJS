@@ -1,6 +1,6 @@
 {
   "name": "arguejs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ArgueJS is a library that allows you to delightfully extend your methods's signatures with optional parameters, default values and type-checking.",
   "main": "argue.js",
   "directories": {

@@ -1,6 +1,6 @@
 #ArgueJS
 
-ArgueJS is a library that allows you to delightfully extend your methods's signatures with [optional parameters](#optional-parameters),
+ArgueJS is a JavaScript library that allows you to delightfully extend your methods's signatures with [optional parameters](#optional-parameters),
 [default values](#default-values) and [type-checking](#type-checking).
 
 ### example
@@ -54,17 +54,20 @@ The latest version will be available for hot-linking at http://raw.github.com/zv
 If you prefer to host yourself, use the `argue.js` file from the root of the github project.
 
 ## Getting started
+
 When writing your JavaScript methods with ArgueJS,
 have in mind that you will not use conventional parameters definition as you used before.
 Actually, all your methods should be defined without them.
 
 Just at the beggining of your method scope,
 you should pass an object defining your method signature into a call to `__` and save its reference for later.
+The signature of this method is `Object __(Object signature, [Object upperArguments])`
 
+*example:*
 ```javascript
 function person(){
-  var paramDefinition = {name: String, age: Number};
-  arguments = __(paramDefinition);
+  var signature = {name: String, age: Number};
+  arguments = __(signature);
   // String name is now referenced by arguments.name
   // Number age is now referenced by arguments.age
   return arguments;
@@ -76,6 +79,20 @@ function person(){
 >>> Person('John', 27).age
  27
 ```
+
+## Propagating arguments
+
+Your method arguments are automatically *infered* by ArgueJS when running out of *strict mode*.
+
+But if running in [*strict mode*](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/Strict_mode)
+you have to pass your method arguments through ArgueJs, like this example does:
+```javascript
+function person(){
+  arguments = __({name: String, age: Number}, arguments);
+  // ...
+```
+
+**Remember**: You do not have to worry about propagating your method arguments through ArgueJS unless you are running your code in *strict mode*.
 
 ## Type-checking
 
@@ -146,7 +163,7 @@ To set a default value for your parameter, take a look at [default values](#defa
 
 When writing methods, sometimes you want to override the value of an undefined argument by a default value.
 The sintax to do this is similiar to [optional parameters](#optional-parameters).
-That is because a *parameter with default value is an optional parameter* by itself.
+That is because a *parameter with default value is an optional parameter* by definition.
 
 To set a default value for a parameter **declare its type and its default value inside of an Array**,
 like this: `{name: [String, 'unknown']}`
