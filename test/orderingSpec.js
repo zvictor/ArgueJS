@@ -75,6 +75,34 @@ define(['argue', 'chai'], function(__, chai) {
           range(3, 7, 1, 0);
         }).should.throw('Too many arguments');
       });
+
+      it('should hit the target among similars test case #2', function() {
+        function f() {
+            return __({
+                first: [String],
+                middle: [String],
+                last: String
+            });
+        }
+
+        //right:
+        var lastArg = 'should be last';
+        var oneArg = f(lastArg);
+        should.equal(oneArg.first, undefined);
+        should.equal(oneArg.middle, undefined);
+        should.equal(oneArg.last, lastArg);
+
+        var firstArg = 'should be first'
+        var twoArg = f(firstArg, lastArg);
+        should.equal(twoArg.first, firstArg);
+        should.equal(twoArg.middle, undefined);
+        should.equal(twoArg.last, lastArg);
+
+        //wrong:
+        (function(){
+            f(3, 7, 1, 0);
+        }).should.throw('Too many arguments');
+      });
   
       it('should not worry about not set optional arguments', function() {
         function upper() {

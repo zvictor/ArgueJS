@@ -83,7 +83,8 @@
         var value = args[pivotIndex];
         
         if (!belongs(value, type)){
-          expansion.splice(i, 1); 
+          if(i !== 1)
+            expansion.splice(i, 1);
           if(!optional && !expansion.length)
             throw new Error("parameter '" + name + "' waiting for a " + type.name + " argument but received a " + toType(value));
         }
