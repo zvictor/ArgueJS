@@ -1,4 +1,9 @@
 
+## v0.1.2
+
+* fixed a bug with optional arguments ordering #1
+* Data type 'Arguments' added;
+
 ## v0.1.1
 
 * Added strict mode compatibility
