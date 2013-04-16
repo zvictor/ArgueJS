@@ -1,4 +1,8 @@
 
+## v0.1.3
+
+* more consistent bug fix to #1
+
 ## v0.1.2
 
 * fixed a bug with optional arguments ordering #1
