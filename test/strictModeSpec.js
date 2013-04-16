@@ -1,6 +1,10 @@
 define(['argue', 'chai'], function(__, chai) {"use strict";
   chai.Assertion.includeStack = true;
   var should = chai.should();
+  
+  if( ({}).toString.call(Function('return this')()).match(/\s([a-z|A-Z]+)/)[1] == 'DOMWindow')
+    // skip stricMode tests if running in the unstable Phantomjs.
+    return; 
 
   describe('strict mode', function() {
 
