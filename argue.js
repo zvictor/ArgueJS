@@ -109,22 +109,22 @@
       var copy = expansion.slice(0);
       // (we make a copy here to avoid infinity loop)
       for(var i=0; i<copy.length; i++){
-        var args = copy[i].slice(0);
+        var args = copy[i];
         var value = args[pivotIndex];
         // ... we avaliate the respective argument value of each possible argument list.
         
         if (!belongs(value, type)){
           // If the argument value does not pass through the type checking,
           //   the argument list is not valid for the given signature...
-          if(i !== 1)
-            // ... and we delete the current argument list, entirely!
-            // Note that it happens even if the parameter is opcional.
-            expansion.splice(i, 1);
+          // ... and we delete the current argument list, entirely!
+          // Note that it happens even if the parameter is opcional.
+          expansion.splice( expansion.indexOf(args), 1);
           if(!optional && !expansion.length)
             // If no more arguments list remains, the input is not compatible. Cheeky arguments, go play with the kids!
             throw new Error("parameter '" + name + "' waiting for " + (type.name || type) + " argument but received " + toType(value));
         }
         
+        args = copy[i].slice(0);
         args.splice(pivotIndex, 0, undefined);
         if(optional && args.length <= paramSum)
           // In case the parameter is opcional,

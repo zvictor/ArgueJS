@@ -77,7 +77,7 @@ define(['argue', 'chai'], function(__, chai) {
       });
 
       it('should hit the target among similars test case #2', function() {
-        function f() {
+        function upper() {
             return __({
                 first: [String],
                 middle: [String],
@@ -87,21 +87,17 @@ define(['argue', 'chai'], function(__, chai) {
 
         //right:
         var lastArg = 'should be last';
-        var oneArg = f(lastArg);
+        // Here, we are forcing the arguments parser to delete 2 argument lists in a row. 
+        var oneArg = upper(lastArg);
         should.equal(oneArg.first, undefined);
         should.equal(oneArg.middle, undefined);
         should.equal(oneArg.last, lastArg);
 
         var firstArg = 'should be first'
-        var twoArg = f(firstArg, lastArg);
+        var twoArg = upper(firstArg, lastArg);
         should.equal(twoArg.first, firstArg);
         should.equal(twoArg.middle, undefined);
         should.equal(twoArg.last, lastArg);
-
-        //wrong:
-        (function(){
-            f(3, 7, 1, 0);
-        }).should.throw('Too many arguments');
       });
   
       it('should not worry about not set optional arguments', function() {
