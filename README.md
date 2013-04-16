@@ -140,6 +140,7 @@ function Book(){
 
 ### Special data types:
 * undefined
+* 'Arguments'
 
 ## Optional parameters
 

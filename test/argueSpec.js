@@ -13,7 +13,7 @@ define(['argue', 'chai'], function(__, chai) {
         
         (function(){
           upper();
-        }).should.throw(/^parameter 'signature' waiting for a Object argument but received a (Undefined|DOMWindow)/);
+        }).should.throw(/^parameter 'signature' waiting for Object argument but received (Undefined|DOMWindow)/);
 
       });
 
@@ -27,7 +27,7 @@ define(['argue', 'chai'], function(__, chai) {
 
         (function(){
           upper();
-        }).should.throw("parameter 'signature' waiting for a Object argument but received a Arguments");
+        }).should.throw("parameter 'signature' waiting for Object argument but received Arguments");
         
       });
 
@@ -47,6 +47,20 @@ define(['argue', 'chai'], function(__, chai) {
         
         delete instance.doc
         instance.should.be.empty;
+
+      });
+
+    });
+    describe('with signature with incompatible upperArguments', function() {
+      function upper() {
+        return __({}, true);
+      }
+
+      it('should throw error when called', function() {
+        
+        (function(){
+          upper();
+        }).should.throw("parameter 'upperArguments' waiting for Array or Arguments argument but received Boolean");
 
       });
 

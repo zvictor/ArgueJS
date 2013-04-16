@@ -142,7 +142,7 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper("value", 7);
-        }).should.throw("parameter 'first' waiting for a Number argument but received a String");
+        }).should.throw("parameter 'first' waiting for Number argument but received String");
         
         (function(){
           upper(7, true);
