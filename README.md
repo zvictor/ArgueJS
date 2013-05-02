@@ -1,6 +1,9 @@
-#ArgueJS
-[[logo.png]]
-ArgueJS is a JavaScript library that allows you to delightfully extend your methods's signatures with [optional parameters](#optional-parameters),
+
+<p align="center">
+  <img src="https://raw.github.com/zvictor/ArgueJS/master/logo.png" alt="ArgueJs" />
+</p>
+
+**ArgueJS** is a JavaScript library that allows you to delightfully extend your methods's signatures with [optional parameters](#optional-parameters),
 [default values](#default-values) and [type-checking](#type-checking).
 
 ### example
