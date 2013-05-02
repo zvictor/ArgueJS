@@ -1,4 +1,3 @@
-
 <p align="center">
   <img src="https://raw.github.com/zvictor/ArgueJS/master/logo.png" alt="ArgueJs" />
 </p>
@@ -77,9 +76,9 @@ function person(){
 }
 ```
 ```javascript
->>> Person('John', 27).name
+>>> person('John', 27).name
  'John'
->>> Person('John', 27).age
+>>> person('John', 27).age
  27
 ```
 
@@ -118,7 +117,7 @@ The [special data type](#special-data-types) `undefined` can be used to allow th
 
 *example:*
 ```javascript
-function Book(){
+function book(){
   arguments = __({title: undefined})
   // ...
   return arguments.title;
