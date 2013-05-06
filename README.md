@@ -152,7 +152,7 @@ To make a parameter optional, **declare its type inside of an Array**, like this
 *example:*
 ```javascript
 function unique(){
-  arguments = __({array: Array, isSorted: [Boolean], iterator: [Function])
+  arguments = __({array: Array, isSorted: [Boolean], iterator: [Function]})
   // Array array is required
   // Boolean isSorted is optional
   // Function iterator is optional
@@ -176,7 +176,7 @@ like this: `{name: [String, 'unknown']}`
 function unique(){
   arguments = __({array: Array, isSorted: [Boolean, false], iterator: [Function, function(element){
     return element;
-  }])
+  }]})
   // Array array is required
   // Boolean isSorted is optional and its default value is false
   // Function iterator is optional and its default value is the function declared above
@@ -189,7 +189,7 @@ you should type your parameter as `undefined`
 
 *example:*
 ```javascript
-  arguments = __({name: [undefined, 'unknown']);
+  arguments = __({name: [undefined, 'unknown']});
 ```
 
 -------------------------------
