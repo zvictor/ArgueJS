@@ -2,7 +2,23 @@ define(['argue', 'chai'], function(__, chai) {
   chai.Assertion.includeStack = true;
   var should = chai.should();
 
-  describe('argue', function() {
+  describe('simple calls', function() {
+
+    describe('when arguments exceed', function() {
+
+      it('should throw an Error when arguments exceed', function() {
+
+        function upper() {
+          return __({});
+        }
+
+        (function(){
+          upper("value");
+        }).should.throw('Too many arguments');
+
+      });
+
+    });
     
     describe('without signature without upperArguments', function() {
       function upper() {
@@ -79,8 +95,7 @@ define(['argue', 'chai'], function(__, chai) {
         
       });
 
-    });    
-      
-    
+    });
+
   });
 });

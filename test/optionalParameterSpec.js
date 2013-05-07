@@ -1,21 +1,6 @@
 define(['argue', 'chai'], function(__, chai) {
   var should = chai.should();
 
-  describe('argument excess', function() {
-    
-    it('should throw an Error when arguments exceed', function() {
-      
-      function upper() {
-        return __({});
-      }
-      
-      (function(){
-        upper("value");
-      }).should.throw('Too many arguments');
-        
-    });
-    
-  });
   describe('optional parameters', function() {
   
     describe('optional parameters', function() {
