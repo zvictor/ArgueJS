@@ -13,13 +13,13 @@ define(['argue', 'chai'], function(__, chai) {
 
         (function(){
           upper();
-        }).should.throw("unsupported type undefined");
+        }).should.throw("unsupported parameter type undefined");
         (function(){
           upper(undefined);
-        }).should.throw("unsupported type undefined");
+        }).should.throw("unsupported parameter type undefined");
         (function(){
           upper(null);
-        }).should.throw("unsupported type undefined");
+        }).should.throw("unsupported parameter type undefined");
 
       });
 

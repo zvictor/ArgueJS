@@ -1,3 +1,6 @@
+## v0.2.1
+
+* Fix on `belongs` when dealing with `undefined` and `null` values
 
 ## v0.2.0
 

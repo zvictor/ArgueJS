@@ -56,13 +56,11 @@ define(['argue', 'chai'], function(__, chai) {
     describe('belongs', function() {
 
       it('should not accept Null and Undefined types', function() {
-        //wrong:
-        (function(){
-          __.belongs(undefined, undefined)
-        }).should.throw("unsupported type undefined");
-        (function(){
-          __.belongs(null, null)
-        }).should.throw("unsupported type null");
+        //right:
+        expect(__.belongs(undefined, undefined)).to.be.true;
+        expect(__.belongs(null, undefined)).to.be.false;
+        expect(__.belongs(undefined, null)).to.be.false;
+        expect(__.belongs(null, null)).to.be.true;
 
       });
 

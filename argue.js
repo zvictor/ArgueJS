@@ -70,6 +70,8 @@
       pivotIndex++;
       var optional = isArray(signature[name]);
       var type = (optional) ? signature[name][0] : signature[name];
+      if(type === undefined)
+        throw new TypeError("unsupported parameter type "+type);
         
       var copy = expansion.slice(0);
       // (we make a copy here to avoid infinity loop)
@@ -193,7 +195,7 @@
     var toString = ({}).toString.call(type).match(/\s([a-z|A-Z]+)/)[1];
 
     if(type === undefined)
-      //workaround for the PhantomJS, to avoid DOMWindow casting.
+      //workaround for the PhantomJS to avoid DOMWindow casting.
       //see more at http://stackoverflow.com/q/14218670/599991
       return "Undefined";
     else if(type === null)
@@ -208,7 +210,9 @@
 
     var result = false;
 
-    if (type == Function
+    if(type === null || type === undefined)
+      return value === type;
+    else if (type == Function
         && typeof (/./) !== 'function') // Hack needed, as seen on UnderscoreJS' `isFunction`, reasons unknown
       result = typeof value === 'function';
     else if (type == Boolean)
@@ -233,7 +237,6 @@
 
   __.noConflict = function() {
     // Relinquish ArgueJS's control of the __ variable.
-
     throw new Error("noConflit is not implemented for module loaders");
   }
 
