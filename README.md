@@ -144,6 +144,8 @@ function book(){
 * "global" (or __.type.global)
 * "Arguments" (or __.type.Arguments)
 
+The relation of ArgueJS with `undefined` and `null` values is detail explained at our Wiki page [Null and Undefined types](https://github.com/zvictor/ArgueJS/wiki/Null-and-Undefined-types)
+
 ## Optional parameters
 
 Optional parameters are great to avoid a mess of conditional clauses at the beggining of your method.
@@ -192,20 +194,69 @@ you should type your parameter as `undefined`
   arguments = __({name: [undefined, 'unknown']});
 ```
 
--------------------------------
 ## Utilities
+
+Some JavaScript methods [do not work intuitively](http://webreflection.blogspot.com.br/2012/06/javascript-typeof-operator-problem.html)
+when dealing with types. This is why we made available these utilities methods, to help you to better deal with them.
+
+### typeof
+
+Util function that gives us the String representation of the type of a given object.
+
+Consider the following example, using the native `typeof` method:
+
+```javascript
+> function whichType() {
+  return typeof this;
+}
+> [
+  whichType.call(false),    // "boolean", right? No!
+  whichType.call("hello"),  // "string", right?  No!
+  whichType.call(123),      // "number", right?  No!
+];
+[ 'object', 'object', 'object' ]
+```
+
+Replace the function `whichType` to use ArgueJS' `__.typeof` and you will have the expected values:
+```javascript
+function whichType() {
+  return __.typeof( this );
+}
+```
+```javascript
+[ 'Boolean', 'String', 'Number' ]
+```
 
 ### getType
 
 The method `__.getType` gives us the type class of the object we may want to inspect.
+Why using String representations when we can access the type directly?
 
-### typeof
+```javascript
 
-Util function that gives us the String representation of the type of the given object.
+> __.getType({key:"value"}) === Object
+true
+> constructor = __.getType(7)
+[Function: Number]
+> constructor("myString") // Number("myString")
+NaN
+> __.getType(this)
+[Function: global]
+```
 
 ### belongs
 
-Util function that determines if a given instance belongs to the given type class.
+The method `__.belongs` tells us if a given instance belongs to the given type class.
+No excuses to compare String representations anymore!
+
+```javascript
+> __.belongs({key:"value"}, Object)
+true
+> __.belongs(this, __.type.global)
+true
+> __.belongs("value", Number)
+false
+```
 
 ### noConflict
 
@@ -213,6 +264,7 @@ Utility to recover the ownership over the `__` variable.
 
 ```javascript
 var ArgueJS = __.noConflict();
+// Now, __ makes reference to its old value, the one before you added ArgueJS
 ```
 -------------------------------
 
