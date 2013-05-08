@@ -1,6 +1,6 @@
 {
   "name": "arguejs",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "ArgueJS is a library that allows you to delightfully extend your methods's signatures with optional parameters, default values and type-checking.",
   "main": "argue.js",
   "directories": {
@@ -13,13 +13,31 @@
     "type": "git",
     "url": "git://github.com/zvictor/ArgueJS.git"
   },
+  "maintainers": [
+    {
+      "name": "José Victor Duarte",
+      "url": "http://zvictor.net"
+    }
+  ],
+  "contributors": [
+
+  ],
+  "bugs": {
+    "url": "http://github.com/zvictor/ArgueJS/issues"
+  },
+  "devDependencies": {
+    "karma": "*"
+  },
   "keywords": [
     "arguejs",
     "argue",
     "arguments",
     "parameters"
   ],
-  "author": "zvictor",
+  "author": {
+    "name" : "José Victor Duarte",
+    "url" : "http://zvictor.net/"
+  },
   "license": "BSD",
   "readmeFilename": "README.md"
 }

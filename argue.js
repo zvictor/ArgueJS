@@ -7,7 +7,13 @@
       return definition();
     });
   } else {
+    var oldValue = context[name];
+
     context[name] = definition();
+    context[name].noConflict = function(){
+      context[name] = oldValue;
+      return this;
+    }
   }
 }('__', this, function () {
   
@@ -15,60 +21,18 @@
     // Util function to check if an object is actually an Array.
     return toString.call(obj) == '[object Array]';
   }
-  
-  var toType = function(obj) {
-    // Util function that gives us the String representation of the type of the given object.
-    
-    // Functions created with the Function constructor don't inherit the strictness of the caller,
-    // they are strict only if they start their body with the 'use strict' directive, otherwise they are non-strict.
-    // See more at http://stackoverflow.com/questions/3277182/599991/how-to-get-the-global-object-in-javascript
-    if (obj === Function('return this')())
-      // Host objects are browser-created objects that are not specified by the ES5 standard.
-      // All DOM elements and global functions are host objects.
-      
-      // ES5 declines to specify a return value for typeof when applied to host objects,
-      // neither does it suggest a value for the [[Class]] property of host objects.
-      // The upshot is that cross-browser type-checking of host objects is generally not reliable.
-      // See more at http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/ 
-      return "global";
-      
-    return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1];
-  }
-  
-  function belongs(value, type) {
-    // Util function that determines if a given instance belongs to the given type class.
-    // code highly inpired on UnderscoreJS.
-        
-    var result = false;
-
-    if(type === undefined)
-      // In our library, the 'undefined type' represents ANY type, so any value is accepted for this type.
-      result = true;
-    else if (type == Function && typeof (/./) !== 'function' /* Hack needed, as seen on UnderscoreJS' isFunction. Reasons unknown. */)
-      result = typeof value === 'function';
-    else if (type == Boolean)
-      result = value === true || value === false || toType(value) == 'Boolean';
-    else if (type == Array)
-      result = isArray(value);
-    else if (['Arguments'].indexOf( type ) != -1)
-      result = toType(value) == type;
-    else if (['Function', 'String', 'Number', 'Date', 'RegExp',   'Object'].indexOf( type.name ) != -1)
-      result = toType(value) == type.name;
-
-    return result;
-  }
 
   var __ = function(signature, upperArguments) {
     // The ArgueJS constructor method.
     var input;
     
-    if (!belongs(signature, Object))
+    if (!__.belongs(signature, Object))
       // If 'signature' is not defined or is not an object, goes away.
-      throw new Error("parameter 'signature' waiting for Object argument but received " + toType(signature));
+      throw new Error("parameter 'signature' waiting for Object argument but received " + __.typeof(signature));
       
-    if (upperArguments !== undefined && !belongs(upperArguments, Array) && !belongs(upperArguments, 'Arguments'))
+    if (upperArguments !== undefined && !__.belongs(upperArguments, Array) && !__.belongs(upperArguments, 'Arguments'))
       // If 'upperArguments' is defined it must be a valid arguments list
-      throw new Error("parameter 'upperArguments' waiting for Array or Arguments argument but received " + toType(upperArguments));
+      throw new Error("parameter 'upperArguments' waiting for Array or Arguments argument but received " + __.typeof(upperArguments));
     
     try{
       // Assumes upperArguments as the passed arguments or try to infer from the caller function.
@@ -78,6 +42,7 @@
     }
     
     // Makes a copy of the input, transforming Arguments (if is the case) into Array.
+    // See more at https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array#Array_generic_methods
     input = Array.prototype.slice.call( input );
     
     var paramSum = 0;
@@ -113,15 +78,16 @@
         var value = args[pivotIndex];
         // ... we evaluate the respective argument value of each possible argument list.
         
-        if (!belongs(value, type)){
+        if (type !== null && !__.belongs(value, type)){
           // If the argument value does not pass through the type checking,
           //   the argument list is not valid for the given signature...
           // ... and we delete the current argument list, entirely!
           // Note that it happens even if the parameter is optional.
+          // Also note that in our library, the Null param allows ANY type for `value`,
           expansion.splice( expansion.indexOf(args), 1);
           if(!optional && !expansion.length)
             // If no more arguments list remains, the input is not compatible. Cheeky arguments, go play with the kids!
-            throw new Error("parameter '" + name + "' waiting for " + (type.name || type) + " argument but received " + toType(value));
+            throw new Error("parameter '" + name + "' waiting for " + (type.name || type) + " argument but received " + __.typeof(value));
         }
         
         args = copy[i].slice(0);
@@ -150,7 +116,7 @@
     
     var paramIndex = 0;
     // Now, whith the input extended,
-    //   is time to pass through the arguments and parameters againg...
+    //   is time to pass through the arguments and parameters again...
     for (var name in signature) {
       var value = input[paramIndex];
       var definition = signature[name];
@@ -158,7 +124,7 @@
       
       var type = (optional) ? definition[0] : definition;
   
-      if (optional && !belongs(value, type))
+      if (optional && !__.belongs(value, type))
         // ... replacing undefined optional values by their default values...
         value = definition[1];
         
@@ -169,6 +135,107 @@
       
     return result;
   };
+
+  var specialTypes = [
+    // Special types definition:
+
+    function Arguments(){
+      // An Array-like object corresponding to the arguments passed to a function.
+      // The arguments object is a local variable available within all functions;
+      // `arguments` as a property of `Function` can no longer be used.
+      throw new Error("It is not possible to create a new Arguments instance");
+      //return Array.apply(this, arguments);
+    },
+    function global(){
+      // In strict mode `this` is never the global,
+      // but also in strict mode `eval` operates in a separate context in which this is always the global.
+      // In non-strict mode `this` is the current context. If there is no current context, it assumes the global.
+      // An anonymous function has no context and hence in non-strict mode assumes the global.
+      // See more at http://stackoverflow.com/questions/3277182/599991/how-to-get-the-global-object-in-javascript
+      return Function('return this')();
+    }
+
+  ];
+  __.type = {};
+  // Save a reference for each special type
+  for(var i=0; i<specialTypes.length; i++)
+    __.type[specialTypes[i].name] = specialTypes[i];
+
+  __.getType = function(obj) {
+    // Util function that gives us the String representation of the type of the given object.
+
+    if(obj === undefined || obj === null)
+      return obj;
+
+    if (obj === __.type.global())
+    // Host objects are browser-created objects that are not specified by the ES5 standard.
+    // All DOM elements and global functions are host objects.
+
+    // ES5 declines to specify a return value for typeof when applied to host objects,
+    // neither does it suggest a value for the [[Class]] property of host objects.
+
+    // The upshot is that cross-browser type-checking of host objects is generally not reliable.
+    // See more at http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
+      return __.type.global;
+
+
+    var name = ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1];
+    if (['Arguments'].indexOf( name ) != -1)
+      return __.type[name];
+
+    return eval( name );
+  }
+
+  __.typeof = function(obj) {
+    // Util function that gives us the String representation of the type of the given object.
+
+    var type = __.getType(obj);
+    var toString = ({}).toString.call(type).match(/\s([a-z|A-Z]+)/)[1];
+
+    if(type === undefined)
+      //workaround for the PhantomJS, to avoid DOMWindow casting.
+      //see more at http://stackoverflow.com/q/14218670/599991
+      return "Undefined";
+    else if(type === null)
+      return "Null";
+
+    return (type && type.hasOwnProperty('name')) ? type.name : toString;
+  }
+
+  __.belongs = function(value, type) {
+    // Util function that determines if a given instance belongs to the given type class.
+    // code highly inspired on UnderscoreJS.
+
+    var result = false;
+
+    if (type == Function
+        && typeof (/./) !== 'function') // Hack needed, as seen on UnderscoreJS' `isFunction`, reasons unknown
+      result = typeof value === 'function';
+    else if (type == Boolean)
+      result = value === true || value === false || __.getType(value) == Boolean;
+    else if (type == Array)
+      result = isArray(value);
+    else if (type in __.type)
+      result = __.typeof(value) === type;
+    else if (type && type.hasOwnProperty('name')
+        && ['Arguments',
+            'Function', 'String', 'Number', 'Date', 'RegExp', 'Object'].indexOf( type.name ) != -1)
+      result = __.getType(value) === type;
+    else
+      try{
+        result = value instanceof type;
+      } catch(e){
+        throw new TypeError("unsupported type "+type);
+      }
+
+    return result;
+  }
+
+  __.noConflict = function() {
+    // Relinquish ArgueJS's control of the __ variable.
+
+    throw new Error("noConflit is not implemented for module loaders");
+  }
 
   var doc = function() {
     // Coming soon. Here you will be able to generate JSDoc, JavaDoc, etc, for your functions.

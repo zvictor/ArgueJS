@@ -29,7 +29,7 @@ define(['argue', 'chai'], function(__, chai) {
         
         (function(){
           upper();
-        }).should.throw(/^parameter 'signature' waiting for Object argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'signature' waiting for Object argument but received Undefined");
 
       });
 

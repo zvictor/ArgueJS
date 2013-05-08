@@ -113,12 +113,12 @@ function age(){
 
 ### Avoid type-checking
 
-The [special data type](#special-data-types) `undefined` can be used to allow the parameter to be of *any* type.
+The *primitive data type* `null` can be used to allow the argument to be of **any** type.
 
 *example:*
 ```javascript
 function book(){
-  arguments = __({title: undefined})
+  arguments = __({title: null})
   // ...
   return arguments.title;
 }
@@ -141,8 +141,8 @@ function book(){
 * RegExp
 
 ### Special data types:
-* undefined
-* 'Arguments'
+* "global" (or __.type.global)
+* "Arguments" (or __.type.Arguments)
 
 ## Optional parameters
 
@@ -192,6 +192,28 @@ you should type your parameter as `undefined`
   arguments = __({name: [undefined, 'unknown']});
 ```
 
+-------------------------------
+## Utilities
+
+### getType
+
+The method `__.getType` gives us the type class of the object we may want to inspect.
+
+### typeof
+
+Util function that gives us the String representation of the type of the given object.
+
+### belongs
+
+Util function that determines if a given instance belongs to the given type class.
+
+### noConflict
+
+Utility to recover the ownership over the `__` variable.
+
+```javascript
+var ArgueJS = __.noConflict();
+```
 -------------------------------
 
 ## Contributing

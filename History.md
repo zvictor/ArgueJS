@@ -1,4 +1,11 @@
 
+## v0.2.0
+
+* COMPATIBILITY BREAK! The wildcard to avoid type-check is now `null`, not `undefined` anymore
+* *special data types* are now defined inside `__.type`
+* Added `global` as new *special data type* and removed `undefined` from them
+* Added the public utility methods `getType`, `typeof`, `belongs` and `noConflict`
+
 ## v0.1.3
 
 * more consistent bug fix to #1

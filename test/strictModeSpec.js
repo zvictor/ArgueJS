@@ -1,6 +1,7 @@
 define(['argue', 'chai'], function(__, chai) {"use strict";
   chai.Assertion.includeStack = true;
   var should = chai.should();
+  var expect = chai.expect;
   
   if( ({}).toString.call(Function('return this')()).match(/\s([a-z|A-Z]+)/)[1] == 'DOMWindow')
     // skip stricMode tests if running in the unstable Phantomjs.
@@ -10,8 +11,8 @@ define(['argue', 'chai'], function(__, chai) {"use strict";
 
     it('should be activated now', function() {
       
-      should.equal( (function () { return !this; })(), true);
-      should.equal( (function () { return !this; })(), true);
+      expect( (function () { return !this; })() ).to.be.true;
+      expect( (function () { return !this; })() ).to.be.true;
       
     });    
     it('should not allow arguments catch', function() {
@@ -42,7 +43,6 @@ define(['argue', 'chai'], function(__, chai) {"use strict";
     it('should allow arguejs to catch declared arguments', function() {
       
       function upper() {
-        debugger;
         return __({foo: String}, arguments);
       }
       

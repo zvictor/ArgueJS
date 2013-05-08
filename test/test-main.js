@@ -7,9 +7,7 @@ requirejs.config({
     baseUrl: '/base',
 
     paths: {
-        'jquery': 'lib/jquery',
-        'underscore': 'lib/underscore',
-        'chai': 'lib/chai',
+      'chai': 'lib/chai'
     },
 
     shim: {

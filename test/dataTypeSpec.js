@@ -17,15 +17,15 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper();
-        }).should.throw(/^parameter 'param' waiting for String argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for String argument but received Undefined");
                 
         (function(){
           upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for String argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for String argument but received Undefined");
         
         (function(){
           upper(null);
-        }).should.throw(/^parameter 'param' waiting for String argument but received (Null|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for String argument but received Null");
                 
         (function(){
           upper(window);
@@ -76,15 +76,15 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper();
-        }).should.throw(/^parameter 'param' waiting for Number argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Number argument but received Undefined");
                 
         (function(){
           upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for Number argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Number argument but received Undefined");
         
         (function(){
           upper(null);
-        }).should.throw(/^parameter 'param' waiting for Number argument but received (Null|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Number argument but received Null");
                 
         (function(){
           upper(window);
@@ -135,15 +135,15 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper();
-        }).should.throw(/^parameter 'param' waiting for Boolean argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Boolean argument but received Undefined");
                 
         (function(){
           upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for Boolean argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Boolean argument but received Undefined");
         
         (function(){
           upper(null);
-        }).should.throw(/^parameter 'param' waiting for Boolean argument but received (Null|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Boolean argument but received Null");
                 
         (function(){
           upper(window);
@@ -195,15 +195,15 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper();
-        }).should.throw(/^parameter 'param' waiting for Array argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Array argument but received Undefined");
                 
         (function(){
           upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for Array argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Array argument but received Undefined");
         
         (function(){
           upper(null);
-        }).should.throw(/^parameter 'param' waiting for Array argument but received (Null|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Array argument but received Null");
                 
         (function(){
           upper(window);
@@ -256,15 +256,15 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper();
-        }).should.throw(/^parameter 'param' waiting for Function argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Function argument but received Undefined");
                 
         (function(){
           upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for Function argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Function argument but received Undefined");
         
         (function(){
           upper(null);
-        }).should.throw(/^parameter 'param' waiting for Function argument but received (Null|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Function argument but received Null");
                 
         (function(){
           upper(window);
@@ -315,15 +315,15 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper();
-        }).should.throw(/^parameter 'param' waiting for Object argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Object argument but received Undefined");
                 
         (function(){
           upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for Object argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Object argument but received Undefined");
         
         (function(){
           upper(null);
-        }).should.throw(/^parameter 'param' waiting for Object argument but received (Null|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Object argument but received Null");
                 
         (function(){
           upper(window);
@@ -375,15 +375,15 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper();
-        }).should.throw(/^parameter 'param' waiting for Date argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Date argument but received Undefined");
                   
         (function(){
           upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for Date argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Date argument but received Undefined");
         
         (function(){
           upper(null);
-        }).should.throw(/^parameter 'param' waiting for Date argument but received (Null|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for Date argument but received Null");
                 
         (function(){
           upper(window);
@@ -435,15 +435,15 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper();
-        }).should.throw(/^parameter 'param' waiting for RegExp argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for RegExp argument but received Undefined");
                 
         (function(){
           upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for RegExp argument but received (Undefined|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for RegExp argument but received Undefined");
         
         (function(){
           upper(null);
-        }).should.throw(/^parameter 'param' waiting for RegExp argument but received (Null|DOMWindow)/);
+        }).should.throw("parameter 'param' waiting for RegExp argument but received Null");
                 
         (function(){
           upper(window);
@@ -482,95 +482,6 @@ define(['argue', 'chai'], function(__, chai) {
         }).should.throw("parameter 'param' waiting for RegExp argument but received Date");
         
       });
-
-
-      it('should allow any argument for undefined typed param', function() {
-        function upper() {
-          return __({param: undefined});
-        }
-        
-        //right [accept all!]:
-        should.equal(upper().param, undefined);
-        should.equal(upper(undefined).param, undefined);
-        should.equal(upper(null).param, null);
-        should.equal(upper(window).param, window);
-        should.equal(upper(arguments).param, arguments);
-        
-        should.equal(upper("value").param, "value");
-        should.equal(upper(7).param, 7);
-        should.equal(upper(true).param, true);
-        upper([]).param.should.eql([]);
-        
-        var fn = function(){};
-        should.equal(upper(fn).param, fn);
-        upper({key:"value"}).param.should.eql({key:"value"});
-        
-        var dt = new Date();
-        should.equal(upper(dt).param, dt);
-        upper(new RegExp()).param.should.eql( new RegExp());
-        
-      });
-      
-      
-      it('should allow any argument for undefined typed param', function() {
-        function upper() {
-          return __({param: "Arguments"});
-        }
-        
-        //right:
-        upper(arguments).param.should.eql( arguments );
-        
-        //wrong:
-        (function(){
-          upper();
-        }).should.throw(/^parameter 'param' waiting for Arguments argument but received (Undefined|DOMWindow)/);
-                
-        (function(){
-          upper(undefined);
-        }).should.throw(/^parameter 'param' waiting for Arguments argument but received (Undefined|DOMWindow)/);
-        
-        (function(){
-          upper(null);
-        }).should.throw(/^parameter 'param' waiting for Arguments argument but received (Null|DOMWindow)/);
-                
-        (function(){
-          upper(window);
-        }).should.throw("parameter 'param' waiting for Arguments argument but received global");
-
-        (function(){
-          upper("value");
-        }).should.throw("parameter 'param' waiting for Arguments argument but received String");
-        
-        (function(){
-          upper(7);
-        }).should.throw("parameter 'param' waiting for Arguments argument but received Number");
-        
-        (function(){
-          upper(true);
-        }).should.throw("parameter 'param' waiting for Arguments argument but received Boolean");
-        
-        (function(){
-          upper([]);
-        }).should.throw("parameter 'param' waiting for Arguments argument but received Array");
-        
-        (function(){
-          upper(function(){});
-        }).should.throw("parameter 'param' waiting for Arguments argument but received Function");
-        
-        (function(){
-          upper({key:"value"});
-        }).should.throw("parameter 'param' waiting for Arguments argument but received Object");
-        
-        (function(){
-          upper(new Date());
-        }).should.throw("parameter 'param' waiting for Arguments argument but received Date");
-        
-        (function(){
-          upper(new RegExp());
-        }).should.throw("parameter 'param' waiting for Arguments argument but received RegExp");
-        
-      });
-
 
     });
     
