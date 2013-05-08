@@ -2,7 +2,7 @@
   <img src="https://raw.github.com/zvictor/ArgueJS/master/logo.png" alt="ArgueJs" />
 </p>
 
-**ArgueJS** is a JavaScript library that allows you to delightfully extend your methods's signatures with [optional parameters](#optional-parameters),
+**ArgueJS** is a JavaScript library that allows you to delightfully extend your method's signatures with [optional parameters](#optional-parameters),
 [default values](#default-values) and [type-checking](#type-checking).
 
 ### example
@@ -61,7 +61,7 @@ When writing your JavaScript methods with ArgueJS,
 have in mind that you will not use conventional parameters definition as you used before.
 Actually, all your methods should be defined without them.
 
-Just at the beggining of your method scope,
+Just at the beginning of your method scope,
 you should pass an object defining your method signature into a call to `__` and save its reference for later.
 The signature of this method is `Object __(Object signature, [Object upperArguments])`
 
@@ -84,17 +84,20 @@ function person(){
 
 ## Propagating arguments
 
-Your method arguments are automatically *infered* by ArgueJS when running out of *strict mode*.
+It **is recommended** that you explicitly pass your methods arguments through ArgueJS.
+It is not required, unless if running in [*strict mode*](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/Strict_mode)
+or aiming compatibility of your code with future versions of JavaScript, then it **is required**.
 
-But if running in [*strict mode*](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/Strict_mode)
-you have to pass your method arguments through ArgueJs, like this example does:
+To explicitly pass your methods arguments through ArgueJS,
+just pass the `arguments` variable after the `signature` description object,
+like this example does:
 ```javascript
 function person(){
-  arguments = __({name: String, age: Number}, arguments);
+  args = __({name: String, age: Number}, arguments);
   // ...
 ```
 
-**Remember**: You do not have to worry about propagating your method arguments through ArgueJS unless you are running your code in *strict mode*.
+See [how does the arguments inference works](#how-does-the-arguments-inference-works) for more.
 
 ## Type-checking
 
@@ -148,7 +151,7 @@ The relation of ArgueJS with `undefined` and `null` values is detail explained a
 
 ## Optional parameters
 
-Optional parameters are great to avoid a mess of conditional clauses at the beggining of your method.
+Optional parameters are great to avoid a mess of conditional clauses at the beginning of your method.
 To make a parameter optional, **declare its type inside of an Array**, like this: `{name: [String]}`
 
 *example:*
@@ -167,7 +170,7 @@ To set a default value for your parameter, take a look at [default values](#defa
 ### Default values
 
 When writing methods, sometimes you want to override the value of an undefined argument by a default value.
-The sintax to do this is similiar to [optional parameters](#optional-parameters).
+The syntax to do this is similar to [optional parameters](#optional-parameters).
 That is because a *parameter with default value is an optional parameter* by definition.
 
 To set a default value for a parameter **declare its type and its default value inside of an Array**,
@@ -201,7 +204,7 @@ when dealing with types. This is why we made available these utilities methods, 
 
 ### typeof
 
-Util function that gives us the String representation of the type of a given object.
+Method that gives us the String representation of the type of a given object.
 
 Consider the following example, using the native `typeof` method:
 
@@ -266,8 +269,20 @@ Utility to recover the ownership over the `__` variable.
 var ArgueJS = __.noConflict();
 // Now, __ makes reference to its old value, the one before you added ArgueJS
 ```
+
+## FAQ
+
+### How does the arguments inference works?
+
+To automatically *infer* your method arguments, ArgueJS uses `arguments.callee` internally.
+It is a powerful and old resource but won't be supported in future JavaScript versions anymore,
+and this is why *strict mode* disallows its use.
+
+Nowadays it is present in all major browsers, although its use is not recommended in favor of better performance.
+See its [documentation](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/arguments/callee) for even more.
+
 -------------------------------
 
 ## Contributing
 
-This project is in its very early stages and any help, suggestion or posted issue will be very appreciated.
+This project is on its very early stages and any help, suggestion or posted issue will be very appreciated.
