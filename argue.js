@@ -103,11 +103,23 @@
       }
     }
     
-    if(!expansion.length)
-      // This Error happens when all the required parameters are satisfied,
-      //   but is not possible to satisfy the type checking of any of the optional parameters.
-      throw new Error("Incompatible type signature");
-      
+    if(!expansion.length){
+      // This Error happens when all the REQUIRED parameters are satisfied,
+      //   but is not possible to satisfy the type checking of any of the OPTIONAL parameters.
+      var plainSignature = [];
+      for (var key in signature)
+        if(__.belongs(signature[key], Array))
+          plainSignature.push( "["+signature[key][0].name+"]" );
+        else
+          plainSignature.push( signature[key].name );
+
+      var plainInput= [];
+      for (var i=0; i< input.length; i++)
+        plainInput.push( __.typeof(input[i]) );
+
+      throw new Error("Incompatible type signature. Expecting ( "+(plainSignature.join(", "))+" ), given ( "+(plainInput.join(", "))+" ).");
+    }
+
     // Now that we finished the expansion,
     //   which of the arguments list are we supposed to choose?
     input = expansion[expansion.length-1];

@@ -23,7 +23,7 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper(7);
-        }).should.throw('Incompatible type signature');
+        }).should.throw('Incompatible type signature. Expecting ( [String] ), given ( Number ).');
   
         (function(){
           upper("value", 7);
@@ -127,12 +127,12 @@ define(['argue', 'chai'], function(__, chai) {
         
         (function(){
           upper(7, true);
-        }).should.throw('Incompatible type signature');
+        }).should.throw('Incompatible type signature. Expecting ( Number, [String], [String], [String], [String], [Number] ), given ( Number, Boolean ).');
         
         
         (function(){
           upper(7, 7, 7);
-        }).should.throw('Incompatible type signature');
+        }).should.throw('Incompatible type signature. Expecting ( Number, [String], [String], [String], [String], [Number] ), given ( Number, Number, Number ).');
       });
   
     });
@@ -154,7 +154,7 @@ define(['argue', 'chai'], function(__, chai) {
         //wrong:
         (function(){
           upper('unknown');
-        }).should.throw("Incompatible type signature");
+        }).should.throw("Incompatible type signature. Expecting ( [Number] ), given ( String ).");
       });
   
     });

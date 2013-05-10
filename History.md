@@ -1,3 +1,8 @@
+
+## v0.2.2
+
+* Added a list of given and expected arguments when error by "Incompatible type signature".
+
 ## v0.2.1
 
 * Fix on `belongs` when dealing with `undefined` and `null` values
