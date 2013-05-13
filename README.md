@@ -133,6 +133,8 @@ function book(){
  1984
 ```
 
+The relation of ArgueJS with `undefined` and `null` values is detail explained at our Wiki page [Null and Undefined types](https://github.com/zvictor/ArgueJS/wiki/Null-and-Undefined-types)
+
 ### Data types
 * String
 * Number
@@ -146,8 +148,6 @@ function book(){
 ### Special data types:
 * "global" (or __.type.global)
 * "Arguments" (or __.type.Arguments)
-
-The relation of ArgueJS with `undefined` and `null` values is detail explained at our Wiki page [Null and Undefined types](https://github.com/zvictor/ArgueJS/wiki/Null-and-Undefined-types)
 
 ## Optional parameters
 
