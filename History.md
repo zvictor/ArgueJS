@@ -1,4 +1,8 @@
 
+## v0.2.3
+
+* For now on, consider `undefined` as a non passed argument  (#12)
+
 ## v0.2.2
 
 * Added a list of given and expected arguments when error by "Incompatible type signature".

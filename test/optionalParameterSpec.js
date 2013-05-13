@@ -44,7 +44,8 @@ define(['argue', 'chai'], function(__, chai) {
         should.equal(oneArg.start, 1); 
         should.equal(oneArg.stop, 7);
         should.equal(oneArg.step, 1);
-        
+
+        debugger;
         var twoArg = range(3, 7);
         should.equal(twoArg.start, 3); 
         should.equal(twoArg.stop, 7);
@@ -111,6 +112,20 @@ define(['argue', 'chai'], function(__, chai) {
         should.not.exist(numberAlone.fourth);
         should.not.exist(numberAlone.fifth);
         should.not.exist(numberAlone.sixth);
+
+        var numberAndUndefined = upper(7, undefined, undefined, undefined, undefined, undefined);
+        numberAndUndefined.first.should.be.equal(7)
+        numberAndUndefined.should
+          .have.ownProperty('second')
+          .have.ownProperty('third')
+          .have.ownProperty('fourth')
+          .have.ownProperty('fifth')
+          .have.ownProperty('sixth');
+        should.not.exist(numberAndUndefined.second);
+        should.not.exist(numberAndUndefined.third);
+        should.not.exist(numberAndUndefined.fourth);
+        should.not.exist(numberAndUndefined.fifth);
+        should.not.exist(numberAndUndefined.sixth);
         
         var numberStrings = upper(7, "value", "value", "value", "value", 7);
         numberStrings.first.should.be.equal(7);
