@@ -1,7 +1,8 @@
 
 ## v0.2.3
 
-* For now on, consider `undefined` as a non passed argument  (#12)
+* For now on, consider `undefined` as a non passed argument. (#12)
+* Forbid numeric parameter names. (#13)
 
 ## v0.2.2
 

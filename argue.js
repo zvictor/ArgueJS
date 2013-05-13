@@ -67,6 +67,8 @@
     var pivotIndex = -1;
     for (var name in signature) {
       // ... and for each parameter...
+      if(!isNaN(parseFloat(name)) && isFinite(name))
+        throw new Error("NameError: a parameter name can not be numeric");
       pivotIndex++;
       var optional = isArray(signature[name]);
       var type = (optional) ? signature[name][0] : signature[name];

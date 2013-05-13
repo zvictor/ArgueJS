@@ -19,6 +19,34 @@ define(['argue', 'chai'], function(__, chai) {
       });
 
     });
+
+    describe('when a parameter name is numeric', function() {
+
+      it('should throw an Error', function() {
+
+        function upper() {
+          return __({1:null});
+        }
+
+        (function(){
+          upper("value");
+        }).should.throw('NameError: a parameter name can not be numeric');
+
+      });
+
+      it('should throw an Error', function() {
+
+        function upper() {
+          return __({"1":null});
+        }
+
+        (function(){
+          upper("value");
+        }).should.throw('NameError: a parameter name can not be numeric');
+
+      });
+
+    });
     
     describe('without signature without upperArguments', function() {
       function upper() {

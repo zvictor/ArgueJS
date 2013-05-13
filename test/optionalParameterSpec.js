@@ -44,8 +44,7 @@ define(['argue', 'chai'], function(__, chai) {
         should.equal(oneArg.start, 1); 
         should.equal(oneArg.stop, 7);
         should.equal(oneArg.step, 1);
-
-        debugger;
+        
         var twoArg = range(3, 7);
         should.equal(twoArg.start, 3); 
         should.equal(twoArg.stop, 7);
