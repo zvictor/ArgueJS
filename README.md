@@ -34,7 +34,7 @@ function range(){
 ## Installation
 ArgueJS is available for both node.js and the browser.
 
-###Node.js
+### Node.js
 
 Package is available through npm:
 
