@@ -46,9 +46,11 @@
     input = Array.prototype.slice.call( input );
     
     var paramSum = 0;
-    for (var name in signature)
-      // We just count how many parameters we have to evaluate...
-      paramSum++;
+    for (var name in signature) {
+		 if (!signature.hasOwnProperty(name)) continue;
+       // We just count how many parameters we have to evaluate...
+		 paramSum++;
+	 }
     
     if(input.length > paramSum)
       // Ops, someone really likes to talk here!
@@ -66,7 +68,9 @@
 
     var pivotIndex = -1;
     for (var name in signature) {
-      // ... and for each parameter...
+		if (!signature.hasOwnProperty(name)) continue;
+
+		// ... and for each parameter...
       if(!isNaN(parseFloat(name)) && isFinite(name))
         throw new Error("NameError: a parameter name can not be numeric");
       pivotIndex++;
@@ -110,11 +114,13 @@
       // This Error happens when all the REQUIRED parameters are satisfied,
       //   but is not possible to satisfy the type checking of any of the OPTIONAL parameters.
       var plainSignature = [];
-      for (var key in signature)
-        if(__.belongs(signature[key], Array))
-          plainSignature.push( "["+signature[key][0].name+"]" );
-        else
-          plainSignature.push( signature[key].name );
+      for (var key in signature) {
+			if (!signature.hasOwnProperty(key)) continue;
+			if(__.belongs(signature[key], Array))
+				plainSignature.push( "["+signature[key][0].name+"]" );
+			else
+				plainSignature.push( signature[key].name );
+		}
 
       var plainInput= [];
       for (var i=0; i< input.length; i++)
@@ -135,6 +141,7 @@
     // Now, whith the input extended,
     //   is time to pass through the arguments and parameters again...
     for (var name in signature) {
+		if (!signature.hasOwnProperty(name)) continue;
       var value = input[paramIndex];
       var definition = signature[name];
       var optional = isArray(definition);
